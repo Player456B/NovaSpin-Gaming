@@ -6,7 +6,213 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Google Fonts for fantasy style -->
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <style>
+/* Fantasy Glowing Background */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', 'Permanent Marker', cursive, sans-serif;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #2d1046 60%, #1a052a 100%);
+  position: relative;
+}
+
+/* Animated glowing background effect */
+.fantasy-bg {
+  position: fixed;
+  width: 100vw; height: 100vh;
+  top: 0; left: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 30%, #794cfb55 0 25%, transparent 70%),
+    radial-gradient(circle at 80% 70%, #3efadf55 0 20%, transparent 70%),
+    radial-gradient(circle at 60% 10%, #fff16b44 0 10%, transparent 60%);
+  animation: bgmove 10s ease-in-out infinite alternate;
+}
+
+@keyframes bgmove {
+  to {
+    background-position:
+      30% 35%,
+      85% 75%,
+      65% 15%;
+  }
+}
+
+/* Loading Screen */
+#loading-screen {
+  position: fixed;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: linear-gradient(120deg, #2d1046 60%, #4ac1ff 100%);
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 1s;
+}
+.loader-logo {
+  text-align: center;
+  animation: pulse 2s infinite alternate;
+}
+@keyframes pulse {
+  from { filter: drop-shadow(0 0 10px #fff16b88); }
+  to { filter: drop-shadow(0 0 30px #3efadf); }
+}
+.company-logo {
+  max-width: 300px;
+  margin-bottom: 30px;
+  filter: drop-shadow(0 0 15px #31c0f9);
+}
+.loader-bar {
+  width: 200px; height: 10px;
+  margin: 20px auto;
+  background: #fff3;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.loader-bar::before {
+  content: "";
+  display: block;
+  width: 0; height: 100%;
+  background: linear-gradient(90deg, #31c0f9, #fff16b, #3efadf);
+  animation: loadbar 2.2s infinite;
+}
+@keyframes loadbar {
+  0% { width: 0; }
+  60% { width: 100%; }
+  100% { width: 100%; opacity: 0;}
+}
+.loading-text {
+  color: #fff;
+  font-size: 1.4em;
+  margin-top: 14px;
+  letter-spacing: 2px;
+}
+
+/* Hide until loaded */
+#game-container.hidden { display: none; }
+
+/* Game Header */
+header {
+  text-align: center;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.game-logo {
+  width: 330px;
+  margin-top: 36px;
+  filter: drop-shadow(0 0 12px #ffdc00a0);
+}
+.company-tag {
+  font-size: 1.2em;
+  color: #3efadf;
+  margin: 0;
+  letter-spacing: 0.2em;
+  text-shadow: 0 1px 8px #000c, 0 0 10px #fff16b60;
+}
+
+/* Slot Machine */
+.slot-machine {
+  background: linear-gradient(150deg, #3c1367cc, #1c1e42bb);
+  border-radius: 36px;
+  box-shadow: 0 8px 60px 0 #000a, 0 0 32px #3efadf33;
+  width: 420px; max-width: 92vw;
+  margin: 0 auto;
+  padding: 40px 24px 24px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Reels */
+.reels {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 30px;
+}
+.reel {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(120deg, #fff2 40%, #3efadf22 100%);
+  border-radius: 18px;
+  box-shadow: 0 3px 15px #3efadfaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.4em;
+  transition: box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+  animation: reelIdle 1.5s infinite alternate;
+}
+@keyframes reelIdle {
+  from { box-shadow: 0 3px 15px #3efadfaa, 0 0 0 #fff0; }
+  to   { box-shadow: 0 8px 28px #fff16baa, 0 0 20px #fff3; }
+}
+
+/* Spin Button */
+#spin-btn {
+  margin: 0 auto;
+  display: block;
+  background: linear-gradient(90deg, #3efadf 40%, #31c0f9 100%);
+  color: #2d1046;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2em;
+  border: none;
+  border-radius: 18px;
+  padding: 12px 60px;
+  box-shadow: 0 6px 22px #3efadf33, 0 0 16px #fff16b33;
+  transition: background 0.2s, transform 0.1s;
+  cursor: pointer;
+  outline: none;
+}
+#spin-btn:active {
+  background: linear-gradient(90deg, #31c0f9 40%, #fff16b 100%);
+  transform: scale(0.97);
+}
+
+/* Win Message */
+#result-message {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 1.7em;
+  color: #fff;
+  text-shadow: 0 0 10px #3efadf, 0 0 12px #fff16b77;
+  min-height: 2.5em;
+  font-family: 'Permanent Marker', cursive;
+  letter-spacing: 0.04em;
+  opacity: 1;
+  transition: opacity 0.33s;
+  animation: resultpop 0.8s;
+}
+@keyframes resultpop {
+  0% { transform: scale(0.7); opacity: 0; }
+  70% { transform: scale(1.18); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+#result-message.jackpot { color: #fff16b; text-shadow: 0 0 24px #ffe476bb, 0 0 40px #fff16baa; }
+#result-message.smallwin { color: #3efadf; text-shadow: 0 0 20px #3efadfbb, 0 0 24px #fff16b66; }
+#result-message.tryagain { color: #ccc; text-shadow: 0 0 6px #0009; }
+
+/* Footer */
+footer {
+  text-align: center;
+  color: #fff9;
+  font-size: 1.1em;
+  margin-top: 32px;
+  letter-spacing: 0.1em;
+  z-index: 2;
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  .slot-machine { padding: 20px 4vw 18px 4vw; }
+  .reels { gap: 10px; }
+  .reel { width: 54px; height: 54px; font-size: 2.1em; }
+  .game-logo { width: 170px; }
+    }
+  </style>
 </head>
 <body>
   <!-- Loading Screen -->
@@ -49,6 +255,9 @@
     🎇💎🔮🧿🪙💰✨🪄
   </div>
 
-  <script src="game.js"></script>
+  <script>
+
+    
+  </script>
 </body>
 </html>
