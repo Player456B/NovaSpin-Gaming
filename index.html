@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GemForge Slots - NovaSpin Gaming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for fantasy style -->
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader-logo">
+      <!-- Replace src with attached company logo image -->
+      <img src="novaspin_logo.png" alt="NovaSpin Gaming" class="company-logo">
+      <div class="loader-bar"></div>
+      <p class="loading-text">Loading the Forge...</p>
+    </div>
+  </div>
+
+  <!-- Main Game Container -->
+  <div id="game-container" class="hidden">
+    <div class="fantasy-bg"></div>
+    <!-- Game Header -->
+    <header>
+      <img src="gemforge_logo.png" alt="GemForge Slots" class="game-logo">
+      <h2 class="company-tag">by NovaSpin Gaming</h2>
+    </header>
+    <!-- Slot Machine Area -->
+    <div class="slot-machine">
+      <div class="reels">
+        <div class="reel" id="reel0"></div>
+        <div class="reel" id="reel1"></div>
+        <div class="reel" id="reel2"></div>
+      </div>
+      <button id="spin-btn">SPIN</button>
+      <div id="result-message"></div>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <span>© 2025 NovaSpin Gaming</span>
+    </footer>
+  </div>
+
+  <!-- Emoji Sprites (hidden, for preloading) -->
+  <div id="emoji-sprites" style="display:none;">
+    <!-- For animation, emojis will be used directly in JS -->
+    🎇💎🔮🧿🪙💰✨🪄
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
