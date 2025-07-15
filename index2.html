@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Spin Gaming Slot Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="slot-background"></div>
+  <div class="slot-container">
+    <header>
+      <div class="slot-header">
+        <span class="slot-title">Sun of Egypt 3</span>
+      </div>
+      <div class="slot-prizes">
+        <div class="prize minor">MINOR<br><span>₹1,250.00</span></div>
+        <div class="prize grand">GRAND<br><span>₹50,000.00</span></div>
+        <div class="prize royal">ROYAL<br><span>₹250,000.00</span></div>
+        <div class="prize major">MAJOR<br><span>₹3,750.00</span></div>
+        <div class="prize mini">MINI<br><span>₹500.00</span></div>
+      </div>
+    </header>
+    <main>
+      <div id="slot-grid">
+        <!-- Slot symbols will be rendered here -->
+      </div>
+    </main>
+    <footer>
+      <div class="slot-info">
+        <div>Last Win (₹)<br><span id="lastWin">0.00</span></div>
+        <div>
+          <button id="spinBtn" class="spin-btn">&#9654;</button>
+          <button id="turboSpinBtn" class="spin-btn turbo">Hold for<br>Turbo Spin</button>
+          <button id="autoSpinBtn" class="spin-btn">&#8635;</button>
+        </div>
+        <div>Bet (₹)<br><span id="betValue">25.00</span></div>
+      </div>
+      <div class="slot-balance">
+        Balance (₹) <span id="balance">100.00</span>
+      </div>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
