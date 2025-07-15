@@ -2,397 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>GemForge Slots - NovaSpin Gaming</title>
+  <title>Nova Spin Gaming Slot Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts for fantasy style -->
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-  <style>
-/* Fantasy Glowing Background */
-body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: 'Orbitron', 'Permanent Marker', cursive, sans-serif;
-  overflow: hidden;
-  background: radial-gradient(ellipse at 50% 30%, #2d1046 60%, #1a052a 100%);
-  position: relative;
-}
-
-/* Animated glowing background effect */
-.fantasy-bg {
-  position: fixed;
-  width: 100vw; height: 100vh;
-  top: 0; left: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 30%, #794cfb55 0 25%, transparent 70%),
-    radial-gradient(circle at 80% 70%, #3efadf55 0 20%, transparent 70%),
-    radial-gradient(circle at 60% 10%, #fff16b44 0 10%, transparent 60%);
-  animation: bgmove 10s ease-in-out infinite alternate;
-}
-
-@keyframes bgmove {
-  to {
-    background-position:
-      30% 35%,
-      85% 75%,
-      65% 15%;
-  }
-}
-
-/* Loading Screen */
-#loading-screen {
-  position: fixed;
-  left: 0; top: 0; width: 100vw; height: 100vh;
-  background: linear-gradient(120deg, #2d1046 60%, #4ac1ff 100%);
-  z-index: 9999;
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity 1s;
-}
-.loader-logo {
-  text-align: center;
-  animation: pulse 2s infinite alternate;
-}
-@keyframes pulse {
-  from { filter: drop-shadow(0 0 10px #fff16b88); }
-  to { filter: drop-shadow(0 0 30px #3efadf); }
-}
-.company-logo {
-  max-width: 300px;
-  margin-bottom: 30px;
-  filter: drop-shadow(0 0 15px #31c0f9);
-}
-.loader-bar {
-  width: 200px; height: 10px;
-  margin: 20px auto;
-  background: #fff3;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-}
-.loader-bar::before {
-  content: "";
-  display: block;
-  width: 0; height: 100%;
-  background: linear-gradient(90deg, #31c0f9, #fff16b, #3efadf);
-  animation: loadbar 2.2s infinite;
-}
-@keyframes loadbar {
-  0% { width: 0; }
-  60% { width: 100%; }
-  100% { width: 100%; opacity: 0;}
-}
-.loading-text {
-  color: #fff;
-  font-size: 1.4em;
-  margin-top: 14px;
-  letter-spacing: 2px;
-}
-
-/* Hide until loaded */
-#game-container.hidden { display: none; }
-
-/* Game Header */
-header {
-  text-align: center;
-  margin-bottom: 16px;
-  z-index: 2;
-}
-.game-logo {
-  width: 330px;
-  margin-top: 36px;
-  filter: drop-shadow(0 0 12px #ffdc00a0);
-}
-.company-tag {
-  font-size: 1.2em;
-  color: #3efadf;
-  margin: 0;
-  letter-spacing: 0.2em;
-  text-shadow: 0 1px 8px #000c, 0 0 10px #fff16b60;
-}
-
-/* Slot Machine */
-.slot-machine {
-  background: linear-gradient(150deg, #3c1367cc, #1c1e42bb);
-  border-radius: 36px;
-  box-shadow: 0 8px 60px 0 #000a, 0 0 32px #3efadf33;
-  width: 420px; max-width: 92vw;
-  margin: 0 auto;
-  padding: 40px 24px 24px 24px;
-  position: relative;
-  z-index: 2;
-}
-
-/* Reels */
-.reels {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 30px;
-}
-.reel {
-  width: 72px;
-  height: 72px;
-  background: linear-gradient(120deg, #fff2 40%, #3efadf22 100%);
-  border-radius: 18px;
-  box-shadow: 0 3px 15px #3efadfaa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3.4em;
-  transition: box-shadow 0.25s;
-  position: relative;
-  overflow: hidden;
-  animation: reelIdle 1.5s infinite alternate;
-}
-@keyframes reelIdle {
-  from { box-shadow: 0 3px 15px #3efadfaa, 0 0 0 #fff0; }
-  to   { box-shadow: 0 8px 28px #fff16baa, 0 0 20px #fff3; }
-}
-
-/* Spin Button */
-#spin-btn {
-  margin: 0 auto;
-  display: block;
-  background: linear-gradient(90deg, #3efadf 40%, #31c0f9 100%);
-  color: #2d1046;
-  font-family: 'Permanent Marker', cursive;
-  font-size: 2em;
-  border: none;
-  border-radius: 18px;
-  padding: 12px 60px;
-  box-shadow: 0 6px 22px #3efadf33, 0 0 16px #fff16b33;
-  transition: background 0.2s, transform 0.1s;
-  cursor: pointer;
-  outline: none;
-}
-#spin-btn:active {
-  background: linear-gradient(90deg, #31c0f9 40%, #fff16b 100%);
-  transform: scale(0.97);
-}
-
-/* Win Message */
-#result-message {
-  text-align: center;
-  margin-top: 22px;
-  font-size: 1.7em;
-  color: #fff;
-  text-shadow: 0 0 10px #3efadf, 0 0 12px #fff16b77;
-  min-height: 2.5em;
-  font-family: 'Permanent Marker', cursive;
-  letter-spacing: 0.04em;
-  opacity: 1;
-  transition: opacity 0.33s;
-  animation: resultpop 0.8s;
-}
-@keyframes resultpop {
-  0% { transform: scale(0.7); opacity: 0; }
-  70% { transform: scale(1.18); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-#result-message.jackpot { color: #fff16b; text-shadow: 0 0 24px #ffe476bb, 0 0 40px #fff16baa; }
-#result-message.smallwin { color: #3efadf; text-shadow: 0 0 20px #3efadfbb, 0 0 24px #fff16b66; }
-#result-message.tryagain { color: #ccc; text-shadow: 0 0 6px #0009; }
-
-/* Footer */
-footer {
-  text-align: center;
-  color: #fff9;
-  font-size: 1.1em;
-  margin-top: 32px;
-  letter-spacing: 0.1em;
-  z-index: 2;
-  position: relative;
-}
-
-@media (max-width: 600px) {
-  .slot-machine { padding: 20px 4vw 18px 4vw; }
-  .reels { gap: 10px; }
-  .reel { width: 54px; height: 54px; font-size: 2.1em; }
-  .game-logo { width: 170px; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="loader-logo">
-      <!-- Replace src with attached company logo image -->
-      <img src="novaspin_logo.png" alt="NovaSpin Gaming" class="company-logo">
-      <div class="loader-bar"></div>
-      <p class="loading-text">Loading the Forge...</p>
-    </div>
-  </div>
-
-  <!-- Main Game Container -->
-  <div id="game-container" class="hidden">
-    <div class="fantasy-bg"></div>
-    <!-- Game Header -->
+  <div class="slot-background"></div>
+  <div class="slot-container">
     <header>
-      <img src="gemforge_logo.png" alt="GemForge Slots" class="game-logo">
-      <h2 class="company-tag">by NovaSpin Gaming</h2>
-    </header>
-    <!-- Slot Machine Area -->
-    <div class="slot-machine">
-      <div class="reels">
-        <div class="reel" id="reel0"></div>
-        <div class="reel" id="reel1"></div>
-        <div class="reel" id="reel2"></div>
+      <div class="slot-header">
+        <span class="slot-title">Sun of Egypt 3</span>
       </div>
-      <button id="spin-btn">SPIN</button>
-      <div id="result-message"></div>
-    </div>
-    <!-- Footer -->
+      <div class="slot-prizes">
+        <div class="prize minor">MINOR<br><span>₹1,250.00</span></div>
+        <div class="prize grand">GRAND<br><span>₹50,000.00</span></div>
+        <div class="prize royal">ROYAL<br><span>₹250,000.00</span></div>
+        <div class="prize major">MAJOR<br><span>₹3,750.00</span></div>
+        <div class="prize mini">MINI<br><span>₹500.00</span></div>
+      </div>
+    </header>
+    <main>
+      <div id="slot-grid">
+        <!-- Slot symbols will be rendered here -->
+      </div>
+    </main>
     <footer>
-      <span>© 2025 NovaSpin Gaming</span>
+      <div class="slot-info">
+        <div>Last Win (₹)<br><span id="lastWin">0.00</span></div>
+        <div>
+          <button id="spinBtn" class="spin-btn">&#9654;</button>
+          <button id="turboSpinBtn" class="spin-btn turbo">Hold for<br>Turbo Spin</button>
+          <button id="autoSpinBtn" class="spin-btn">&#8635;</button>
+        </div>
+        <div>Bet (₹)<br><span id="betValue">25.00</span></div>
+      </div>
+      <div class="slot-balance">
+        Balance (₹) <span id="balance">100.00</span>
+      </div>
     </footer>
   </div>
-
-  <!-- Emoji Sprites (hidden, for preloading) -->
-  <div id="emoji-sprites" style="display:none;">
-    <!-- For animation, emojis will be used directly in JS -->
-    🎇💎🔮🧿🪙💰✨🪄
-  </div>
-
-  <script>
-// === GemForge Slots - Main JS ===
-
-// Symbol set (Animated Emojis! Use Unicode emoji for simplicity and animation)
-// Each item: {emoji, animationCssClass}
-const SYMBOLS = [
-  {emoji: '💎', anim: 'swing'},   // Gem
-  {emoji: '🔮', anim: 'bounce'},  // Crystal Ball
-  {emoji: '🧿', anim: 'pulse'},   // Mystic Eye
-  {emoji: '🪙', anim: 'flip'},    // Coin
-  {emoji: '💰', anim: 'pop'},     // Bag of Gold
-  {emoji: '✨', anim: 'sparkle'}, // Sparkles
-  {emoji: '🪄', anim: 'twirl'},   // Magic Wand
-  {emoji: '🎇', anim: 'flash'},   // Jackpot Spark
-];
-
-// Animation CSS injected for emoji symbols
-const style = document.createElement('style');
-style.textContent = `
-@keyframes swing { 15% { transform: rotateZ(-9deg); } 50%{transform: rotateZ(9deg);} 85%{transform: rotateZ(-9deg);} }
-@keyframes bounce { 30% { transform: scale(1.4) translateY(-12px);} 60%{transform:scale(1.03);} 100%{} }
-@keyframes pulse { 30%{filter:brightness(1.6);} 60%{filter:brightness(1);} }
-@keyframes flip { 30%{transform:rotateY(180deg);} 80%{transform:rotateY(0);} }
-@keyframes pop { 20%{transform: scale(1.2);} 60%{transform: scale(1);} }
-@keyframes sparkle { 20%{filter:drop-shadow(0 0 16px #fff16b);} 80%{} }
-@keyframes twirl { 40%{transform:rotateZ(180deg);} 100%{transform:rotateZ(0);} }
-@keyframes flash { 15%{filter:brightness(2);} 30%{filter:brightness(1);} }
-.emoji.swing { animation: swing 1.1s ease-in-out; }
-.emoji.bounce { animation: bounce 1s; }
-.emoji.pulse { animation: pulse 0.9s; }
-.emoji.flip { animation: flip 0.75s; }
-.emoji.pop { animation: pop 0.5s; }
-.emoji.sparkle { animation: sparkle 1.2s; }
-.emoji.twirl { animation: twirl 1s; }
-.emoji.flash { animation: flash 0.65s; }
-`;
-document.head.appendChild(style);
-
-// Utility: Random int
-function randInt(max) { return Math.floor(Math.random() * max); }
-
-// Reel spin logic
-const reels = [document.getElementById('reel0'), document.getElementById('reel1'), document.getElementById('reel2')];
-const spinBtn = document.getElementById('spin-btn');
-const resultMsg = document.getElementById('result-message');
-
-function showSymbol(reel, symbolIdx, anim=true) {
-  const symbol = SYMBOLS[symbolIdx];
-  reel.innerHTML = `<span class="emoji${anim ? ` ${symbol.anim}` : ''}">${symbol.emoji}</span>`;
-}
-
-function spinReels() {
-  // Disable button during spin
-  spinBtn.disabled = true;
-  resultMsg.textContent = '';
-  resultMsg.className = '';
-  // Animate spinning: show random for a moment, then settle
-  let spinRounds = [18, 25, 30]; // Each reel stops at different time
-  let positions = [0,0,0];
-  let counts = [0,0,0];
-  let intervals = [null, null, null];
-
-  function stopReel(idx, symbolIdx) {
-    clearInterval(intervals[idx]);
-    showSymbol(reels[idx], symbolIdx, true);
-    positions[idx] = symbolIdx;
-    // If all reels stopped, check win
-    if (intervals.every(x => x === null)) {
-      setTimeout(() => checkWin(positions), 360);
-      spinBtn.disabled = false;
-    }
-  }
-
-  // Start each reel
-  for(let i=0; i<3; ++i) {
-    intervals[i] = setInterval(() => {
-      let s = randInt(SYMBOLS.length);
-      showSymbol(reels[i], s, false);
-      counts[i]++;
-      if (counts[i] > spinRounds[i]) {
-        stopReel(i, randInt(SYMBOLS.length));
-        intervals[i] = null;
-      }
-    }, 70 + i*22);
-  }
-}
-
-function checkWin(pos) {
-  // All three match = Jackpot
-  if (pos[0] === pos[1] && pos[1] === pos[2]) {
-    resultMsg.textContent = '🎉 JACKPOT! Three of a kind! 🎉';
-    resultMsg.className = 'jackpot';
-    animeWin(reels, [0,1,2]);
-  }
-  // Two adjacent match = Small Win
-  else if (pos[0] === pos[1] || pos[1] === pos[2]) {
-    resultMsg.textContent = '✨ Small Win! ✨';
-    resultMsg.className = 'smallwin';
-    animeWin(reels, pos[0] === pos[1] ? [0,1] : [1,2]);
-  }
-  else {
-    resultMsg.textContent = 'Try Again!';
-    resultMsg.className = 'tryagain';
-  }
-}
-
-// Animate win reels
-function animeWin(reels, idxs) {
-  idxs.forEach(i => {
-    const emoji = reels[i].querySelector('.emoji');
-    if (emoji) {
-      emoji.style.animation = 'none';
-      // Re-trigger animation
-      setTimeout(() => {
-        emoji.style.animation = '';
-        emoji.classList.add('bounce');
-      }, 10);
-    }
-  });
-}
-
-// On page load: loading screen logic
-window.addEventListener('DOMContentLoaded', () => {
-  // Show loading at least 2s, fade out
-  setTimeout(() => {
-    document.getElementById('loading-screen').style.opacity = '0';
-    setTimeout(() => {
-      document.getElementById('loading-screen').style.display = 'none';
-      document.getElementById('game-container').classList.remove('hidden');
-      // Set initial symbols
-      for (let i=0; i<3; ++i) showSymbol(reels[i], randInt(SYMBOLS.length), false);
-    }, 950);
-  }, 1800);
-
-  // Spin button
-  spinBtn.addEventListener('click', spinReels);
-});
-    
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
